@@ -1,0 +1,46 @@
+DECLARE @DECISION_SERVICE_NAME AS VARCHAR(100)
+DECLARE @EXCECUTION_START_DATE AS VARCHAR(100)
+DECLARE @EXCECUTION_STOP_DATE  AS VARCHAR(100)
+
+DECLARE @RULESHEET_NAME AS VARCHAR(100)
+DECLARE @RULE_1 AS VARCHAR(10)
+DECLARE @RULE_2 AS VARCHAR(10)
+
+SET @DECISION_SERVICE_NAME = 'HealthAndCriticality'
+SET @EXCECUTION_START_DATE = '01/01/2022 00:00:00'
+SET @EXCECUTION_STOP_DATE  = '01/01/2022 07:00:00'
+
+SET @RULESHEET_NAME = 'income check'
+SET @RULE_1         = '1'
+SET @RULE_2         = '2'
+
+/********************************************************************************************** 
+      Which executions and their input payloads didn't fire a specific Rule? 
+***********************************************************************************************/
+SELECT ex.id,
+       pay.input
+  FROM CORTICON_ANALYTICS_EXECUTION ex,
+       dbo.CORTICON_ANALYTICS_PAYLOADS pay
+ WHERE ex.id NOT IN (SELECT raud.execution_id
+                       FROM CORTICON_ANALYTICS_RULE_AUDITING raud
+                      WHERE raud.rule_catalog_id IN (SELECT rcat.id
+                                                       FROM CORTICON_ANALYTICS_RULE_CATALOG rcat
+                                                      WHERE rcat.rulesheet_name = @RULESHEET_NAME AND
+                                                            (rcat.rule_number = @RULE_1 OR rcat.rule_number = @RULE_2))) AND
+                                                            ex.id = pay.execution_id;
+
+/********************************************************************************************** 
+      Over a specific time range 
+***********************************************************************************************/
+SELECT ex.id,
+       pay.input
+  FROM CORTICON_ANALYTICS_EXECUTION ex,
+       dbo.CORTICON_ANALYTICS_PAYLOADS pay
+ WHERE ex.id NOT IN (SELECT raud.execution_id
+                       FROM CORTICON_ANALYTICS_RULE_AUDITING raud
+                      WHERE raud.rule_catalog_id IN (SELECT rcat.id
+                                                       FROM CORTICON_ANALYTICS_RULE_CATALOG rcat
+                                                      WHERE rcat.rulesheet_name = @RULESHEET_NAME AND
+                                                            (rcat.rule_number = @RULE_1 OR rcat.rule_number = @RULE_2))) AND
+                                                            ex.id = pay.execution_id AND
+                                                            ex.execution_timestamp between @EXCECUTION_START_DATE and @EXCECUTION_STOP_DATE;
