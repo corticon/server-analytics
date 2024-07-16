@@ -1,0 +1,16 @@
+
+1. Which Rules fired for each execution?
+
+2. Which Rules didn't fire for each execution?
+
+3. Which Rules fired for this Decision Service regardless of execution?
+
+4. Which Rules never fired for this Decision Service for all executions?
+
+5. Compare how many times a Rule fired in an execution to how many executions were fired?
+
+6. Which executions and their input payloads didn't fire a specific Rule?
+
+7. Which executions and their input payloads didn't fire a specific Rulesheet?
+
+-------------------------------------------------------------
