@@ -1,0 +1,1231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.corticon.rulesemf.assetmodel:RulesheetAsset xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.corticon.rulesemf.asg="http:///com/corticon/rulesemf/asg.ecore" xmlns:com.corticon.rulesemf.assetmodel="http:///com/corticon/rulesemf/assetmodel.ecore" xmlns:com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable="http:///com/corticon/rulesemf/viewrulemodel/rulesheet/decisiontable.ecore" majorVersionNumber="6" minorVersionNumber="3" majorServiceNumber="1" minorServiceNumber="2" buildNumber="8020" updateStamp="_pzXoMwx8Ee69w95-twWdbg" externalChecksum="2722078124:507989954:2614682131" studioType="Java">
+  <languageCode>en_US</languageCode>
+  <ruleset vocabularyUpdateStamp="_xhfR0Qx5Ee69w95-twWdbg" vocabulary="../Vocabulary.ecore#/">
+    <rule>
+      <condition/>
+      <condition/>
+      <condition/>
+      <condition/>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+      <action>
+        <opaqueExpression expression="enviro_risk.environmental_criticality_final_score = enviro_risk.environmental_weight*(enviro_risk.air_emissions_risk_unweighted + enviro_risk.chemical_emissions_risk_unweighted + enviro_risk.waste_and_process_water_risk_unweighted + enviro_risk.solid_and_hazard_waste_risk_unweighted)">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.environmental_criticality_final_score = enviro_risk.environmental_weight * ( enviro_risk.air_emissions_risk_unweighted + enviro_risk.chemical_emissions_risk_unweighted + enviro_risk.waste_and_process_water_risk_unweighted + enviro_risk.solid_and_hazard_waste_risk_unweighted )" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="environmental_criticality_final_score" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.environmental_criticality_final_score">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="waste_and_process_water_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+              <terms text="air_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+              <terms text="chemical_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+              <terms text="environmental_weight" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.environmental_weight">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+              <terms text="solid_and_hazard_waste_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+    </rule>
+    <rule>
+      <condition>
+        <opaqueExpression expression="enviro_risk.air_emissions_risk_selection = 'None'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_selection = 'None'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="air_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.air_emissions_risk_selection" rhs="'None'"/>
+      </condition>
+      <condition/>
+      <condition/>
+      <condition/>
+      <action>
+        <opaqueExpression expression="enviro_risk.air_emissions_risk_unweighted = 0">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_unweighted = 0" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="air_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition>
+        <opaqueExpression expression="enviro_risk.air_emissions_risk_selection = 'Non-reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_selection = 'Non-reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="air_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.air_emissions_risk_selection" rhs="'Non-reportable'"/>
+      </condition>
+      <condition/>
+      <condition/>
+      <condition/>
+      <action>
+        <opaqueExpression expression="enviro_risk.air_emissions_risk_unweighted = 3">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_unweighted = 3" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="air_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition>
+        <opaqueExpression expression="enviro_risk.air_emissions_risk_selection = 'Reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_selection = 'Reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="air_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.air_emissions_risk_selection" rhs="'Reportable'"/>
+      </condition>
+      <condition/>
+      <condition/>
+      <condition/>
+      <action>
+        <opaqueExpression expression="enviro_risk.air_emissions_risk_unweighted = 5">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_unweighted = 5" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="air_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition/>
+      <condition>
+        <opaqueExpression expression="enviro_risk.chemical_emissions_risk_selection = 'None'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_selection = 'None'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="chemical_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.chemical_emissions_risk_selection" rhs="'None'"/>
+      </condition>
+      <condition/>
+      <condition/>
+      <action/>
+      <action>
+        <opaqueExpression expression="enviro_risk.chemical_emissions_risk_unweighted = 0">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_unweighted = 0" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="chemical_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition/>
+      <condition>
+        <opaqueExpression expression="enviro_risk.chemical_emissions_risk_selection = 'Non-reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_selection = 'Non-reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="chemical_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.chemical_emissions_risk_selection" rhs="'Non-reportable'"/>
+      </condition>
+      <condition/>
+      <condition/>
+      <action/>
+      <action>
+        <opaqueExpression expression="enviro_risk.chemical_emissions_risk_unweighted = 3">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_unweighted = 3" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="chemical_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition/>
+      <condition>
+        <opaqueExpression expression="enviro_risk.chemical_emissions_risk_selection = 'Reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_selection = 'Reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="chemical_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.chemical_emissions_risk_selection" rhs="'Reportable'"/>
+      </condition>
+      <condition/>
+      <condition/>
+      <action/>
+      <action>
+        <opaqueExpression expression="enviro_risk.chemical_emissions_risk_unweighted = 5">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_unweighted = 5" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="chemical_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition/>
+      <condition/>
+      <condition>
+        <opaqueExpression expression="enviro_risk.waste_and_process_water_risk_selection = 'None'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_selection = 'None'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="waste_and_process_water_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.waste_and_process_water_risk_selection" rhs="'None'"/>
+      </condition>
+      <condition/>
+      <action/>
+      <action/>
+      <action>
+        <opaqueExpression expression="enviro_risk.waste_and_process_water_risk_unweighted = 0">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_unweighted = 0" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="waste_and_process_water_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition/>
+      <condition/>
+      <condition>
+        <opaqueExpression expression="enviro_risk.waste_and_process_water_risk_selection = 'Non-reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_selection = 'Non-reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="waste_and_process_water_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.waste_and_process_water_risk_selection" rhs="'Non-reportable'"/>
+      </condition>
+      <condition/>
+      <action/>
+      <action/>
+      <action>
+        <opaqueExpression expression="enviro_risk.waste_and_process_water_risk_unweighted = 3">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_unweighted = 3" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="waste_and_process_water_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition/>
+      <condition/>
+      <condition>
+        <opaqueExpression expression="enviro_risk.waste_and_process_water_risk_selection = 'Reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_selection = 'Reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="waste_and_process_water_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.waste_and_process_water_risk_selection" rhs="'Reportable'"/>
+      </condition>
+      <condition/>
+      <action/>
+      <action/>
+      <action>
+        <opaqueExpression expression="enviro_risk.waste_and_process_water_risk_unweighted = 5">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_unweighted = 5" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="waste_and_process_water_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition/>
+      <condition/>
+      <condition/>
+      <condition>
+        <opaqueExpression expression="enviro_risk.solid_and_hazard_waste_risk_selection = 'None'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_selection = 'None'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="solid_and_hazard_waste_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.solid_and_hazard_waste_risk_selection" rhs="'None'"/>
+      </condition>
+      <action/>
+      <action/>
+      <action/>
+      <action>
+        <opaqueExpression expression="enviro_risk.solid_and_hazard_waste_risk_unweighted = 0">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_unweighted = 0" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="solid_and_hazard_waste_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition/>
+      <condition/>
+      <condition/>
+      <condition>
+        <opaqueExpression expression="enviro_risk.solid_and_hazard_waste_risk_selection = 'Non-reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_selection = 'Non-reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="solid_and_hazard_waste_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.solid_and_hazard_waste_risk_selection" rhs="'Non-reportable'"/>
+      </condition>
+      <action/>
+      <action/>
+      <action/>
+      <action>
+        <opaqueExpression expression="enviro_risk.solid_and_hazard_waste_risk_unweighted = 3">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_unweighted = 3" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="solid_and_hazard_waste_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+    </rule>
+    <rule>
+      <condition/>
+      <condition/>
+      <condition/>
+      <condition>
+        <opaqueExpression expression="enviro_risk.solid_and_hazard_waste_risk_selection = 'Reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_selection = 'Reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="solid_and_hazard_waste_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+        <viewExpressions lhs="enviro_risk.solid_and_hazard_waste_risk_selection" rhs="'Reportable'"/>
+      </condition>
+      <action/>
+      <action/>
+      <action/>
+      <action>
+        <opaqueExpression expression="enviro_risk.solid_and_hazard_waste_risk_unweighted = 5">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_unweighted = 5" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="solid_and_hazard_waste_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </opaqueExpression>
+      </action>
+      <action/>
+      <action/>
+    </rule>
+    <logicalVariable entity="../Vocabulary.ecore#//Equipment">
+      <extension explicit="true" association="true" entity="../Vocabulary.ecore#//Criticality" traversedAssocRole="../Vocabulary.ecore#//Equipment/criticality">
+        <alias value="enviro_risk"/>
+        <referencedAttributes attribute="../Vocabulary.ecore#//Criticality/waste_and_process_water_risk_selection"/>
+        <referencedAttributes attribute="../Vocabulary.ecore#//Criticality/waste_and_process_water_risk_unweighted"/>
+        <referencedAttributes attribute="../Vocabulary.ecore#//Criticality/air_emissions_risk_selection"/>
+        <referencedAttributes attribute="../Vocabulary.ecore#//Criticality/chemical_emissions_risk_selection"/>
+        <referencedAttributes attribute="../Vocabulary.ecore#//Criticality/solid_and_hazard_waste_risk_selection"/>
+        <referencedAttributes attribute="../Vocabulary.ecore#//Criticality/air_emissions_risk_unweighted"/>
+        <referencedAttributes attribute="../Vocabulary.ecore#//Criticality/chemical_emissions_risk_unweighted"/>
+        <referencedAttributes attribute="../Vocabulary.ecore#//Criticality/solid_and_hazard_waste_risk_unweighted"/>
+        <referencedAttributes attribute="../Vocabulary.ecore#//Criticality/environmental_criticality_final_score"/>
+      </extension>
+    </logicalVariable>
+  </ruleset>
+  <rulesheetViewList xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:DecisionTable" advanced="true">
+    <actionSection rowCount="49" scrollRowTop="2" columnWidthFactor="0.5">
+      <actionItemList>
+        <valueSetCell/>
+        <expressionCell external="enviro_risk.air_emissions_risk_unweighted">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_unweighted" datatype="Decimal" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="air_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </expressionCell>
+      </actionItemList>
+      <actionItemList>
+        <valueSetCell/>
+        <expressionCell external="enviro_risk.chemical_emissions_risk_unweighted">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_unweighted" datatype="Decimal" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="chemical_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </expressionCell>
+      </actionItemList>
+      <actionItemList>
+        <valueSetCell/>
+        <expressionCell external="enviro_risk.waste_and_process_water_risk_unweighted">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_unweighted" datatype="Decimal" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="waste_and_process_water_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </expressionCell>
+      </actionItemList>
+      <actionItemList>
+        <valueSetCell/>
+        <expressionCell external="enviro_risk.solid_and_hazard_waste_risk_unweighted">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_unweighted" datatype="Decimal" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="solid_and_hazard_waste_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </expressionCell>
+      </actionItemList>
+      <actionItemList>
+        <valueSetCell/>
+        <expressionCell/>
+      </actionItemList>
+      <actionItemList rowHeight="221">
+        <valueSetCell/>
+        <expressionCell external="enviro_risk.environmental_criticality_final_score">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.environmental_criticality_final_score" datatype="Decimal" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="environmental_criticality_final_score" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.environmental_criticality_final_score">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </expressionCell>
+      </actionItemList>
+    </actionSection>
+    <scopeSection>
+      <rootNode>
+        <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeEntity" expanded="true" logicalVariable="#//@ruleset/@logicalVariables.0">
+          <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeAssociation" expanded="true" logicalVariable="#//@ruleset/@logicalVariables.0/@extension.0">
+            <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeAttribute" referencedAttribute="#//@ruleset/@logicalVariables.0/@extension.0/@referencedAttributes.0"/>
+            <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeAttribute" referencedAttribute="#//@ruleset/@logicalVariables.0/@extension.0/@referencedAttributes.1"/>
+            <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeAttribute" referencedAttribute="#//@ruleset/@logicalVariables.0/@extension.0/@referencedAttributes.2"/>
+            <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeAttribute" referencedAttribute="#//@ruleset/@logicalVariables.0/@extension.0/@referencedAttributes.3"/>
+            <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeAttribute" referencedAttribute="#//@ruleset/@logicalVariables.0/@extension.0/@referencedAttributes.4"/>
+            <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeAttribute" referencedAttribute="#//@ruleset/@logicalVariables.0/@extension.0/@referencedAttributes.5"/>
+            <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeAttribute" referencedAttribute="#//@ruleset/@logicalVariables.0/@extension.0/@referencedAttributes.6"/>
+            <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeAttribute" referencedAttribute="#//@ruleset/@logicalVariables.0/@extension.0/@referencedAttributes.7"/>
+            <children xsi:type="com.corticon.rulesemf.viewrulemodel.rulesheet.decisiontable:ScopeAttribute" referencedAttribute="#//@ruleset/@logicalVariables.0/@extension.0/@referencedAttributes.8"/>
+          </children>
+        </children>
+      </rootNode>
+    </scopeSection>
+    <filterSection rowCount="50"/>
+    <ruleStatementSection rowCount="50" scrollRowTop="3" columnWidthReference="50" columnWidthPostSeverity="75" columnWidthAlias="100" columnWidthID="50" columnWidthText="600" columnWidthRuleName="100" columnWidthRuleLink="100" columnWidthSourceName="100" columnWidthSourceLink="100" columnWidthCategory="100" columnWidthComments="400"/>
+    <conditionSection rowCount="50" columnWidthFactor="0.5">
+      <conditionItemList>
+        <valueSetCell/>
+        <expressionCell external="enviro_risk.air_emissions_risk_selection">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_selection" datatype="String" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="air_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </expressionCell>
+      </conditionItemList>
+      <conditionItemList>
+        <valueSetCell/>
+        <expressionCell external="enviro_risk.chemical_emissions_risk_selection">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_selection" datatype="String" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="chemical_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </expressionCell>
+      </conditionItemList>
+      <conditionItemList>
+        <valueSetCell/>
+        <expressionCell external="enviro_risk.waste_and_process_water_risk_selection">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_selection" datatype="String" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="waste_and_process_water_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </expressionCell>
+      </conditionItemList>
+      <conditionItemList>
+        <valueSetCell/>
+        <expressionCell external="enviro_risk.solid_and_hazard_waste_risk_selection">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_selection" datatype="String" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="solid_and_hazard_waste_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </expressionCell>
+      </conditionItemList>
+    </conditionSection>
+    <ruleSection columnCount="20">
+      <ruleColumnList ruleId="0" columnWidth="461" pRule="#//@ruleset/@rules.0">
+        <conditionValueSetCellList/>
+        <conditionValueSetCellList/>
+        <conditionValueSetCellList/>
+        <conditionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList valueSet="enviro_risk.environmental_weight*(enviro_risk.air_emissions_risk_unweighted + enviro_risk.chemical_emissions_risk_unweighted + enviro_risk.waste_and_process_water_risk_unweighted + enviro_risk.solid_and_hazard_waste_risk_unweighted)">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.environmental_criticality_final_score = enviro_risk.environmental_weight * ( enviro_risk.air_emissions_risk_unweighted + enviro_risk.chemical_emissions_risk_unweighted + enviro_risk.waste_and_process_water_risk_unweighted + enviro_risk.solid_and_hazard_waste_risk_unweighted )" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="environmental_criticality_final_score" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.environmental_criticality_final_score">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="waste_and_process_water_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+              <terms text="air_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+              <terms text="chemical_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+              <terms text="environmental_weight" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.environmental_weight">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+              <terms text="solid_and_hazard_waste_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+      </ruleColumnList>
+      <ruleColumnList ruleId="1" columnWidth="100" pRule="#//@ruleset/@rules.1">
+        <conditionValueSetCellList valueSet="'None'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_selection = 'None'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="air_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <actionValueSetCellList valueSet="0">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_unweighted = 0" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="air_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="2" columnWidth="100" pRule="#//@ruleset/@rules.2">
+        <conditionValueSetCellList valueSet="'Non-reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_selection = 'Non-reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="air_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <actionValueSetCellList valueSet="3">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_unweighted = 3" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="air_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="3" columnWidth="100" pRule="#//@ruleset/@rules.3">
+        <conditionValueSetCellList valueSet="'Reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_selection = 'Reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="air_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <actionValueSetCellList valueSet="5">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.air_emissions_risk_unweighted = 5" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="air_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.air_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="4" columnWidth="100" pRule="#//@ruleset/@rules.4">
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="'None'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_selection = 'None'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="chemical_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList valueSet="0">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_unweighted = 0" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="chemical_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="5" columnWidth="100" pRule="#//@ruleset/@rules.5">
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="'Non-reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_selection = 'Non-reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="chemical_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList valueSet="3">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_unweighted = 3" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="chemical_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="6" columnWidth="100" pRule="#//@ruleset/@rules.6">
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="'Reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_selection = 'Reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="chemical_emissions_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList valueSet="5">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.chemical_emissions_risk_unweighted = 5" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="chemical_emissions_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.chemical_emissions_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="7" columnWidth="100" pRule="#//@ruleset/@rules.7">
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="'None'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_selection = 'None'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="waste_and_process_water_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <conditionValueSetCellList valueSet="-"/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList valueSet="0">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_unweighted = 0" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="waste_and_process_water_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="8" columnWidth="100" pRule="#//@ruleset/@rules.8">
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="'Non-reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_selection = 'Non-reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="waste_and_process_water_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <conditionValueSetCellList valueSet="-"/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList valueSet="3">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_unweighted = 3" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="waste_and_process_water_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="9" columnWidth="100" pRule="#//@ruleset/@rules.9">
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="'Reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_selection = 'Reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="waste_and_process_water_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <conditionValueSetCellList valueSet="-"/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList valueSet="5">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.waste_and_process_water_risk_unweighted = 5" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="waste_and_process_water_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.waste_and_process_water_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="10" columnWidth="100" pRule="#//@ruleset/@rules.10">
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="'None'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_selection = 'None'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="solid_and_hazard_waste_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList valueSet="0">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_unweighted = 0" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="solid_and_hazard_waste_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="11" columnWidth="100" pRule="#//@ruleset/@rules.11">
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="'Non-reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_selection = 'Non-reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="solid_and_hazard_waste_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList valueSet="3">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_unweighted = 3" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="solid_and_hazard_waste_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+      <ruleColumnList ruleId="12" columnWidth="100" pRule="#//@ruleset/@rules.12">
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="-"/>
+        <conditionValueSetCellList valueSet="'Reportable'">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_selection = 'Reportable'" datatype="Boolean" expressiontype="EXPRESSION" enumeration="false" cellValue="false">
+            <referencedTermList>
+              <terms text="solid_and_hazard_waste_risk_selection" datatype="String" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_selection">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk" variable="#//@ruleset/@logicalVariables.0/@extension.0">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment" variable="#//@ruleset/@logicalVariables.0"/>
+                </parentTerm>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </conditionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+        <actionValueSetCellList valueSet="5">
+          <parserOutput xsi:type="com.corticon.rulesemf.asg:Expression" text="enviro_risk.solid_and_hazard_waste_risk_unweighted = 5" datatype="Decimal" expressiontype="ASSIGNMENT" enumeration="false" cellValue="false">
+            <modifiedTermList>
+              <terms text="solid_and_hazard_waste_risk_unweighted" datatype="Decimal" termtype="ATTRIBUTE" fulltext="enviro_risk.solid_and_hazard_waste_risk_unweighted">
+                <parentTerm text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                  <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+                </parentTerm>
+              </terms>
+            </modifiedTermList>
+            <referencedTermList>
+              <terms text="enviro_risk" datatype="Criticality" termtype="ENTITY" fulltext="enviro_risk">
+                <parentTerm text="Equipment" datatype="Equipment" termtype="ENTITY" fulltext="Equipment"/>
+              </terms>
+            </referencedTermList>
+          </parserOutput>
+        </actionValueSetCellList>
+        <actionValueSetCellList/>
+        <actionValueSetCellList/>
+      </ruleColumnList>
+    </ruleSection>
+  </rulesheetViewList>
+</com.corticon.rulesemf.assetmodel:RulesheetAsset>
