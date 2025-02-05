@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.jdom.Document;
+import org.jdom2.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -502,17 +502,28 @@ public class CcPersistToDatabase extends CcAnalyticsHandler
          String lstrRuleNumber = lCcAnalyticsMetric.getRuleNumber();
          
          // Look up the RuleCatalogId
-         int liRuleCatalogId = ahmRuleCatalogRulesheetRuleToDatabaseId.get(lstrRulesheetName + "-" + lstrRuleNumber);
+         String lstrLookupRulesheetRuleId = lstrRulesheetName + "-" + lstrRuleNumber;
+         Object lobjRuleCatalogId = ahmRuleCatalogRulesheetRuleToDatabaseId.get(lstrLookupRulesheetRuleId);
 
-         //  Get current count
-         Integer lICurrentCountForRule = lhmRuleCatalogIdToCounter.get(liRuleCatalogId);
-         if (lICurrentCountForRule == null)
-            lICurrentCountForRule = Integer.valueOf(0);
+         Integer liRuleCatalogId = null;
          
-         //  Increase and store back into HashMap
-         lICurrentCountForRule = Integer.valueOf(lICurrentCountForRule + 1);
-         
-         lhmRuleCatalogIdToCounter.put(liRuleCatalogId, lICurrentCountForRule);
+         if (lobjRuleCatalogId != null)
+            liRuleCatalogId = (Integer)lobjRuleCatalogId;
+         else
+            Log.logWarning("Rule Catalog Id not found in Database for (Rulehseet-RuleNumber) : (" + lstrLookupRulesheetRuleId +")", this);
+
+         if (liRuleCatalogId != null)
+         {
+            //  Get current count
+            Integer lICurrentCountForRule = lhmRuleCatalogIdToCounter.get(liRuleCatalogId);
+            if (lICurrentCountForRule == null)
+               lICurrentCountForRule = Integer.valueOf(0);
+            
+            //  Increase and store back into HashMap
+            lICurrentCountForRule = Integer.valueOf(lICurrentCountForRule + 1);
+            
+            lhmRuleCatalogIdToCounter.put(liRuleCatalogId, lICurrentCountForRule);
+         }
       }
       
       //  Now that all the Rules have been counted, add them to the database
