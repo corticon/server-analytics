@@ -127,7 +127,7 @@ GO
 CREATE TABLE [dbo].[CORTICON_ANALYTICS_RULE_CATALOG](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[decision_service_id] [int] NULL,
-	[rulesheet_name] [varchar](200) NULL,
+	[rulesheet_name] [varchar](500) NULL,
 	[rule_number] [varchar](50) NULL,
  CONSTRAINT [PK_CORTICON_ANALYTICS_RULE_CATALOG] PRIMARY KEY CLUSTERED 
 (
