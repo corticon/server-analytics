@@ -46,7 +46,7 @@ public class CcPersistToDatabase extends CcAnalyticsHandler
 
    private static final boolean DEBUG = CcProperties.getCcProperty("CcPersistToDatabaseJSON.debug", "false").equals("true") ? true : false;
    
-   private Properties lpropDatabaseConnection = null;
+   private Properties ipropDatabaseConnection = null;
 
    public void processAnalytics()
    {
@@ -57,6 +57,7 @@ public class CcPersistToDatabase extends CcAnalyticsHandler
 
       Log.logDebug("CcPersistToDatabase.call() Start", this);
 
+      Connection lConnection = null;
       try
       {
          InputStream lInputStream = getClass().getClassLoader().getResourceAsStream("CcPersistToDatabase.properties");
@@ -66,12 +67,13 @@ public class CcPersistToDatabase extends CcAnalyticsHandler
             return;
          }
          
-         lpropDatabaseConnection = new Properties();
-         lpropDatabaseConnection.load(lInputStream);
+         ipropDatabaseConnection = new Properties();
+         ipropDatabaseConnection.load(lInputStream);
          
-         Log.logDebug("CcPersistToDatabase.call() Found properties == " + lpropDatabaseConnection, this);
-         
-         Connection lConnection = getConnection();
+         Log.logDebug("CcPersistToDatabase.call() Found properties == " + ipropDatabaseConnection, this);
+ 
+         //  Get a new Connection
+         lConnection = getConnection();
          
          Object lobjInput = getInput();
          Object lobjOutput = getOutput();
@@ -169,15 +171,27 @@ public class CcPersistToDatabase extends CcAnalyticsHandler
       }
       finally
       {
-         //  Clear out all instance variables inside this ancestor classes
-         clear();
-         
-         long llStopTime = System.currentTimeMillis();
-         if (DEBUG)
-            CcUtil.writeToSystemOutPrintln("*** CcPersistToDatabaseJSON Total Time = " + (llStopTime - llStartTime));
-         
-         Log.logRuleTrace("CcPersistToDatabase.call() Total Time = " + (llStopTime - llStartTime), this);
-         Log.logTiming("CcPersistToDatabase.call() Total Time = " + (llStopTime - llStartTime), this);
+         try
+         {
+            if (lConnection != null)
+               lConnection.close();
+         }
+         catch (SQLException e1)
+         {
+            Log.logException(e1, "Failed to close Connection in CcPersistToDatabase.", this);
+         }
+         finally
+         {
+            //  Clear out all instance variables inside this ancestor classes
+            clear();
+            
+            long llStopTime = System.currentTimeMillis();
+            if (DEBUG)
+               CcUtil.writeToSystemOutPrintln("*** CcPersistToDatabaseJSON Total Time = " + (llStopTime - llStartTime));
+            
+            Log.logRuleTrace("CcPersistToDatabase.call() Total Time = " + (llStopTime - llStartTime), this);
+            Log.logTiming("CcPersistToDatabase.call() Total Time = " + (llStopTime - llStartTime), this);
+         }
       }
    }
    
@@ -667,10 +681,10 @@ public class CcPersistToDatabase extends CcAnalyticsHandler
    {
       long llStartTime = System.currentTimeMillis();
       
-      String lstrDriverClass = lpropDatabaseConnection.getProperty("driverClass");
-      String lstrUrl         = lpropDatabaseConnection.getProperty("databaseUrl");
-      String lstrUsername    = lpropDatabaseConnection.getProperty("username");
-      String lstrPassword    = lpropDatabaseConnection.getProperty("password");
+      String lstrDriverClass = ipropDatabaseConnection.getProperty("driverClass");
+      String lstrUrl         = ipropDatabaseConnection.getProperty("databaseUrl");
+      String lstrUsername    = ipropDatabaseConnection.getProperty("username");
+      String lstrPassword    = ipropDatabaseConnection.getProperty("password");
       
       Connection lConnection = null;
 
@@ -686,10 +700,10 @@ public class CcPersistToDatabase extends CcAnalyticsHandler
       if (lstrPassword != null)
          lComboPooledDataSource.setPassword(lstrPassword);
 
-      lComboPooledDataSource.setMaxIdleTime(Integer.parseInt("1800"));
-      lComboPooledDataSource.setMaxPoolSize(Integer.parseInt("100"));
-      lComboPooledDataSource.setMinPoolSize(Integer.parseInt("1"));
-      lComboPooledDataSource.setMaxStatements(Integer.parseInt("50"));
+      lComboPooledDataSource.setMaxIdleTime(Integer.parseInt((String)ipropDatabaseConnection.getProperty("maxIdleTime", "1800")));
+      lComboPooledDataSource.setMaxPoolSize(Integer.parseInt((String)ipropDatabaseConnection.getProperty("maxPoolSize", "100")));
+      lComboPooledDataSource.setMinPoolSize(Integer.parseInt((String)ipropDatabaseConnection.getProperty("minPoolSize", "1")));
+      lComboPooledDataSource.setMaxStatements(Integer.parseInt((String)ipropDatabaseConnection.getProperty("maxStatements", "50")));
       
       lConnection = lComboPooledDataSource.getConnection();
       lConnection.setAutoCommit(false);
