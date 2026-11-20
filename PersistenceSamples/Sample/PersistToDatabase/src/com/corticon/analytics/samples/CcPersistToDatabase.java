@@ -27,9 +27,11 @@ import com.corticon.analytics.CcAnalyticsHandlerRuleCatalog;
 import com.corticon.analytics.CcAnalyticsHandlerRuleMessage;
 import com.corticon.init.CcProperties;
 import com.corticon.log.Log;
+import com.corticon.util.CcEncrypt;
 import com.corticon.util.CcUtil;
 import com.corticon.util.CcXmlIO;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.mchange.v2.c3p0.PooledDataSource;
 
 public class CcPersistToDatabase extends CcAnalyticsHandler
 {
@@ -46,7 +48,8 @@ public class CcPersistToDatabase extends CcAnalyticsHandler
 
    private static final boolean DEBUG = CcProperties.getCcProperty("CcPersistToDatabaseJSON.debug", "false").equals("true") ? true : false;
    
-   private Properties ipropDatabaseConnection = null;
+   private static PooledDataSource sDataSource = null;
+   private static Thread sShutdownHook = null;
 
    public void processAnalytics()
    {
@@ -55,144 +58,124 @@ public class CcPersistToDatabase extends CcAnalyticsHandler
       if (DEBUG)
          CcUtil.writeToSystemOutPrintln("====== CcPersistToDatabaseJSON (Start) ======");
 
-      Log.logDebug("CcPersistToDatabase.call() Start", this);
+      Log.logTiming("CcPersistToDatabase.call() Start v7.1.4.0", this);
 
-      Connection lConnection = null;
-      try
+      try (Connection lConnection = getDataSource().getConnection())
       {
-         InputStream lInputStream = getClass().getClassLoader().getResourceAsStream("CcPersistToDatabase.properties");
-         if (lInputStream == null)
+         try
          {
-            //  Log that nothing was found...
-            return;
+            lConnection.setAutoCommit(false);
+            persistAnalytics(lConnection);
          }
-         
-         ipropDatabaseConnection = new Properties();
-         ipropDatabaseConnection.load(lInputStream);
-         
-         Log.logDebug("CcPersistToDatabase.call() Found properties == " + ipropDatabaseConnection, this);
- 
-         //  Get a new Connection
-         lConnection = getConnection();
-         
-         Object lobjInput = getInput();
-         Object lobjOutput = getOutput();
-         
-         List<CcAnalyticsHandlerRuleCatalog> llstRuleCatatlog = getRuleCatalog();
-         List<CcAnalyticsHandlerRuleMessage> llstRuleMessages = getRuleMessges();
-         
-         List<CcAnalyticsHandlerMetric> llstEntityChanges = getEntityChanges();
-         List<CcAnalyticsHandlerMetric> llstAttributeChanges = getAttributeChanges();
-         List<CcAnalyticsHandlerMetric> llstAssociationChanges = getAssociationChanges();
-
-         //  Create a list of all the changes
-         List<CcAnalyticsHandlerMetric> llstAllChanges = new ArrayList();
-         llstAllChanges.addAll(llstEntityChanges);
-         llstAllChanges.addAll(llstAttributeChanges);
-         llstAllChanges.addAll(llstAssociationChanges);
-         
-         //-------------------------------------------------------------------------------------------------
-         //  Get an existing Decision Service Id from the Database, if it is there.
-         Integer liDecisionServiceId = getDecisionServiceIdFromDatabase(lConnection);
-         
-         //  If the Decision Service hasn't already been added to the Database, we need to do that now, and reuse the "id"
-         //  in subsequent operations
-         if (liDecisionServiceId == null)
-            liDecisionServiceId = insertIndividualDecisionServiceIntoDatabase(lConnection);
-         
-         //  If we don't have a valid DecisionService id value, then there is no need to continue.
-         if (liDecisionServiceId == null)
+         finally
          {
-            Log.logError("Failed to establish a Decision Service id.  Opertation terminated.", this);
-            return;
-         }
-
-         //-------------------------------------------------------------------------------------------------
-         // Get the Rule Catalog from the Database associated with this Decision Service.
-         HashMap<String, Integer> lhmRuleCatalogRulesheetRuleToDatabaseId = getRuleCatalogIdsFromDatabase(lConnection, liDecisionServiceId);
-         
-         //  If there is nothing in the Database, then we need to add the current Rule Catalog to the Database and retain 
-         //  the "id" value for each Rule entered
-         if (lhmRuleCatalogRulesheetRuleToDatabaseId.isEmpty())
-         {
-            lhmRuleCatalogRulesheetRuleToDatabaseId = insertIndividualRuleCatalogIntoDatabase(lConnection, liDecisionServiceId, llstRuleCatatlog);
-         }
-         else
-         {
-            //  There are Rule Catalogs in the Database.  Now compare those values with what is associated with the Decision Service.
-            //  If there are Rules associated with the Decision Service that are not in the Database, then we need to stop execution.
-            //  The Database values are out-of-sync with the Decision Service.
-            boolean lbMatchDecisionServiceRulesToDatabaseRuleCatalog = validateRuleCatalogWithDecisionService(lhmRuleCatalogRulesheetRuleToDatabaseId, llstRuleCatatlog);
-            if (lbMatchDecisionServiceRulesToDatabaseRuleCatalog == false)
+            try
             {
-               Log.logError("Rule Catalog in Database for Decision Service Id (" + liDecisionServiceId + ") is out-of-sync with Decision Service.  Opertation terminated.", this);
-               return;
+               // Preserve existing commits; discard only work not already committed.
+               if (!lConnection.getAutoCommit())
+                  lConnection.rollback();
+            }
+            catch (SQLException e)
+            {
+               Log.logException(e, "Failed to roll back Connection in CcPersistToDatabase.", this);
             }
          }
-         
-         //  Again, if we don't have the necessary Rule Catalog Ids, then there is no need to continue.
-         if (lhmRuleCatalogRulesheetRuleToDatabaseId.isEmpty())
-         {
-            Log.logError("Failed to establish Rule Catalog ids.  Opertation terminated.", this);
-            return;
-         }
-         
-         //-------------------------------------------------------------------------------------------------
-         //  Insert a new Execution record into the Database for this Decision Service and retain the "id" value
-         //  to be used in subsequent operations.
-         long llExecutionStartTime = getExecutionStartTime();
-         long llTotalExecutionTime = getExecutionTotalTime();
-
-         int liExecutionId = insertIndividualExecutionIntoDatabase(lConnection, liDecisionServiceId, llExecutionStartTime, llTotalExecutionTime);
-         
-         //  Insert Rule Auditing records.  Since we don't need to reuse the new "id" value for each record, this operation can be done 
-         //  in Batch mode for performance reasons.
-         insertBatchRuleAuditingIntoDatabase(lConnection, llstAllChanges, liExecutionId, lhmRuleCatalogRulesheetRuleToDatabaseId);
-
-         //  Insert Rule Execution records.  Since we don't need to reuse the new "id" value for each record, this operation can be done 
-         //  in Batch mode for performance reasons.
-         insertBatchRuleExecutionsIntoDatabase(lConnection, llstAllChanges, liExecutionId, lhmRuleCatalogRulesheetRuleToDatabaseId);
-         
-         //  Record Input and Output Payloads
-         insertIndividualPayloadsIntoDatabase(lConnection, lobjInput, lobjOutput, liExecutionId);
-         
-         //  Record RuleMessages
-         insertBatchRuleMessagesIntoDatabase(lConnection, llstRuleMessages, liExecutionId);
-      }
-      catch (IOException | JSONException | SQLException | PropertyVetoException e)
-      {
-         Log.logException(e, "Unexpected Error when persisting to database.", this);
-         return;
       }
       catch (Exception e)
       {
          Log.logException(e, "Unexpected Error when persisting to database.", this);
-         return;
       }
       finally
       {
-         try
+         //  Clear out all instance variables inside this ancestor classes
+         clear();
+
+         long llStopTime = System.currentTimeMillis();
+         if (DEBUG)
+            CcUtil.writeToSystemOutPrintln("*** CcPersistToDatabaseJSON Total Time = " + (llStopTime - llStartTime));
+
+         Log.logRuleTrace("CcPersistToDatabase.call() Total Time = " + (llStopTime - llStartTime), this);
+         Log.logTiming("CcPersistToDatabase.call() Total Time = " + (llStopTime - llStartTime), this);
+      }
+   }
+
+   private void persistAnalytics(Connection lConnection) throws JSONException, SQLException
+   {
+      Object lobjInput = getInput();
+      Object lobjOutput = getOutput();
+
+      List<CcAnalyticsHandlerRuleCatalog> llstRuleCatatlog = getRuleCatalog();
+      List<CcAnalyticsHandlerRuleMessage> llstRuleMessages = getRuleMessges();
+
+      List<CcAnalyticsHandlerMetric> llstEntityChanges = getEntityChanges();
+      List<CcAnalyticsHandlerMetric> llstAttributeChanges = getAttributeChanges();
+      List<CcAnalyticsHandlerMetric> llstAssociationChanges = getAssociationChanges();
+
+      //  Create a list of all the changes
+      List<CcAnalyticsHandlerMetric> llstAllChanges = new ArrayList();
+      llstAllChanges.addAll(llstEntityChanges);
+      llstAllChanges.addAll(llstAttributeChanges);
+      llstAllChanges.addAll(llstAssociationChanges);
+
+      //--------------------------------------------------------------------------------------------
+      //  Get an existing Decision Service Id from the Database, if it is there.
+      Integer liDecisionServiceId = getDecisionServiceIdFromDatabase(lConnection);
+
+      //  Add a missing Decision Service and reuse its id in subsequent operations.
+      if (liDecisionServiceId == null)
+         liDecisionServiceId = insertIndividualDecisionServiceIntoDatabase(lConnection);
+
+      //  If we don't have a valid DecisionService id value, then there is no need to continue.
+      if (liDecisionServiceId == null)
+      {
+         Log.logError("Failed to establish a Decision Service id.  Opertation terminated.", this);
+         return;
+      }
+
+      //--------------------------------------------------------------------------------------------
+      // Get the Rule Catalog from the Database associated with this Decision Service.
+      HashMap<String, Integer> lhmRuleCatalogRulesheetRuleToDatabaseId = getRuleCatalogIdsFromDatabase(lConnection, liDecisionServiceId);
+
+      //  Add a missing Rule Catalog and retain the id for each Rule.
+      if (lhmRuleCatalogRulesheetRuleToDatabaseId.isEmpty())
+      {
+         lhmRuleCatalogRulesheetRuleToDatabaseId = insertIndividualRuleCatalogIntoDatabase(lConnection, liDecisionServiceId, llstRuleCatatlog);
+      }
+      else
+      {
+         //  Stop if the Database Rule Catalog is out of sync with the Decision Service.
+         boolean lbMatchDecisionServiceRulesToDatabaseRuleCatalog = validateRuleCatalogWithDecisionService(lhmRuleCatalogRulesheetRuleToDatabaseId, llstRuleCatatlog);
+         if (lbMatchDecisionServiceRulesToDatabaseRuleCatalog == false)
          {
-            if (lConnection != null)
-               lConnection.close();
-         }
-         catch (SQLException e1)
-         {
-            Log.logException(e1, "Failed to close Connection in CcPersistToDatabase.", this);
-         }
-         finally
-         {
-            //  Clear out all instance variables inside this ancestor classes
-            clear();
-            
-            long llStopTime = System.currentTimeMillis();
-            if (DEBUG)
-               CcUtil.writeToSystemOutPrintln("*** CcPersistToDatabaseJSON Total Time = " + (llStopTime - llStartTime));
-            
-            Log.logRuleTrace("CcPersistToDatabase.call() Total Time = " + (llStopTime - llStartTime), this);
-            Log.logTiming("CcPersistToDatabase.call() Total Time = " + (llStopTime - llStartTime), this);
+            Log.logError("Rule Catalog in Database for Decision Service Id (" + liDecisionServiceId + ") is out-of-sync with Decision Service.  Opertation terminated.", this);
+            return;
          }
       }
+
+      //  Again, if we don't have the necessary Rule Catalog Ids, then there is no need to continue.
+      if (lhmRuleCatalogRulesheetRuleToDatabaseId.isEmpty())
+      {
+         Log.logError("Failed to establish Rule Catalog ids.  Opertation terminated.", this);
+         return;
+      }
+
+      //--------------------------------------------------------------------------------------------
+      //  Insert an Execution record and retain its id for subsequent operations.
+      long llExecutionStartTime = getExecutionStartTime();
+      long llTotalExecutionTime = getExecutionTotalTime();
+
+      int liExecutionId = insertIndividualExecutionIntoDatabase(lConnection, liDecisionServiceId, llExecutionStartTime, llTotalExecutionTime);
+
+      //  Batch inserts do not need to retain generated ids.
+      insertBatchRuleAuditingIntoDatabase(lConnection, llstAllChanges, liExecutionId, lhmRuleCatalogRulesheetRuleToDatabaseId);
+
+      insertBatchRuleExecutionsIntoDatabase(lConnection, llstAllChanges, liExecutionId, lhmRuleCatalogRulesheetRuleToDatabaseId);
+
+      //  Record Input and Output Payloads
+      insertIndividualPayloadsIntoDatabase(lConnection, lobjInput, lobjOutput, liExecutionId);
+
+      //  Record RuleMessages
+      insertBatchRuleMessagesIntoDatabase(lConnection, llstRuleMessages, liExecutionId);
    }
    
    //***********************************************************************************************************************************
@@ -677,42 +660,94 @@ public class CcPersistToDatabase extends CcAnalyticsHandler
    //********************************************************************************************************
    //********************************************************************************************************
    //********************************************************************************************************
-   private Connection getConnection() throws PropertyVetoException, SQLException
+   private static synchronized PooledDataSource getDataSource()
+         throws IOException, PropertyVetoException
    {
-      long llStartTime = System.currentTimeMillis();
-      
-      String lstrDriverClass = ipropDatabaseConnection.getProperty("driverClass");
-      String lstrUrl         = ipropDatabaseConnection.getProperty("databaseUrl");
-      String lstrUsername    = ipropDatabaseConnection.getProperty("username");
-      String lstrPassword    = ipropDatabaseConnection.getProperty("password");
-      
-      Connection lConnection = null;
+      if (sDataSource != null)
+         return sDataSource;
 
-      //  Create a new C3PO Pool
+      Properties lProperties = new Properties();
+      try (InputStream lInputStream = CcPersistToDatabase.class.getClassLoader().getResourceAsStream("CcPersistToDatabase.properties"))
+      {
+         if (lInputStream == null)
+            throw new IOException("CcPersistToDatabase.properties not found on the classpath.");
+         lProperties.load(lInputStream);
+      }
+
+      String lstrDriverClass = lProperties.getProperty("driverClass");
+      String lstrUrl = lProperties.getProperty("databaseUrl");
+      String lstrUsername = lProperties.getProperty("username");
+      String lstrPassword = lProperties.getProperty("password");
+      if (CcUtil.isInteger(lstrUsername))
+         lstrUsername = CcEncrypt.decryptString(lstrUsername);
+      if (CcUtil.isInteger(lstrPassword))
+         lstrPassword = CcEncrypt.decryptString(lstrPassword);
+
+      // Handlers are created per request; the pool belongs to the defining class loader.
       ComboPooledDataSource lComboPooledDataSource = new ComboPooledDataSource();
-      
-      lComboPooledDataSource.setDriverClass(lstrDriverClass);
-      lComboPooledDataSource.setJdbcUrl(lstrUrl);
-      
-      // Only set the username/password properties if they are not null
-      if (lstrUsername != null)
-         lComboPooledDataSource.setUser(lstrUsername);
-      if (lstrPassword != null)
-         lComboPooledDataSource.setPassword(lstrPassword);
+      try
+      {
+         lComboPooledDataSource.setDriverClass(lstrDriverClass);
+         lComboPooledDataSource.setJdbcUrl(lstrUrl);
 
-      lComboPooledDataSource.setMaxIdleTime(Integer.parseInt((String)ipropDatabaseConnection.getProperty("maxIdleTime", "1800")));
-      lComboPooledDataSource.setMaxPoolSize(Integer.parseInt((String)ipropDatabaseConnection.getProperty("maxPoolSize", "100")));
-      lComboPooledDataSource.setMinPoolSize(Integer.parseInt((String)ipropDatabaseConnection.getProperty("minPoolSize", "1")));
-      lComboPooledDataSource.setMaxStatements(Integer.parseInt((String)ipropDatabaseConnection.getProperty("maxStatements", "50")));
-      
-      lConnection = lComboPooledDataSource.getConnection();
-      lConnection.setAutoCommit(false);
+         if (lstrUsername != null)
+            lComboPooledDataSource.setUser(lstrUsername);
+         if (lstrPassword != null)
+            lComboPooledDataSource.setPassword(lstrPassword);
 
-      long llStopTime = System.currentTimeMillis();
-      if (DEBUG)
-         CcUtil.writeToSystemOutPrintln("CcPersistToDatabaseJSON.getConnection() = " + (llStopTime - llStartTime));
+         lComboPooledDataSource.setMaxIdleTime(Integer.parseInt(lProperties.getProperty("maxIdleTime", "1800")));
+         lComboPooledDataSource.setMaxPoolSize(Integer.parseInt(lProperties.getProperty("maxPoolSize", "100")));
+         lComboPooledDataSource.setMinPoolSize(Integer.parseInt(lProperties.getProperty("minPoolSize", "1")));
+         lComboPooledDataSource.setMaxStatements(Integer.parseInt(lProperties.getProperty("maxStatements", "50")));
 
-      return lConnection;
+         Thread lShutdownHook = new Thread(CcPersistToDatabase::closeDataSource, "CcPersistToDatabase-shutdown");
+         Runtime.getRuntime().addShutdownHook(lShutdownHook);
+         sShutdownHook = lShutdownHook;
+
+         sDataSource = lComboPooledDataSource;
+         return sDataSource;
+      }
+      catch (PropertyVetoException | RuntimeException | Error e)
+      {
+         lComboPooledDataSource.close();
+         throw e;
+      }
+   }
+
+   /**
+    * Closes the shared pool after analytics submissions have stopped and pending work has finished.
+    * Call before unloading the application; JVM shutdown also closes the pool automatically.
+    */
+   public static synchronized void closeDataSource()
+   {
+      if (sDataSource != null)
+      {
+         try
+         {
+            sDataSource.close();
+         }
+         catch (SQLException e)
+         {
+            Log.logException(e, "Failed to close CcPersistToDatabase pool.", CcPersistToDatabase.class);
+            return;
+         }
+         sDataSource = null;
+      }
+      if (sShutdownHook != null)
+      {
+         if (Thread.currentThread() != sShutdownHook)
+         {
+            try
+            {
+               Runtime.getRuntime().removeShutdownHook(sShutdownHook);
+            }
+            catch (IllegalStateException e)
+            {
+               Log.logDebug("JVM shutdown already in progress.", CcPersistToDatabase.class);
+            }
+         }
+         sShutdownHook = null;
+      }
    }
 
    private String getSqlStatement(String astrSqlType)
